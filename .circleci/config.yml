@@ -1,70 +1,85 @@
 
 version: 2.1
 
-parameters:
-  run-pod-lint:
-    type: boolean
-    default: true
-
-  run-tests:
-    type: boolean
-    default: true
-
-  allow-warnings:
-    type: string
-    default: "YES"
-
 jobs:
   tests:
-  macos:
-    xcode: 13.1.0
+    parameters:
+      run-pod-lint:
+        type: boolean
+        default: true
+
+      run-tests:
+        type: boolean
+        default: true
+
+      allow-warnings:
+        type: string
+        default: "YES"
+
+    macos:
+      xcode: 13.1.0
+
     steps:
       - checkout
 
-      - name: Setup Code Climate Test Reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter before-build
+      - run:
+          name: Setup Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter before-build
 
-      - name: Install test dependencies
-          run: |
+      - run:
+          name: Install test dependencies
+          command: |
             bundle install
 
-      - name: Run Cocoapods' linter
-          # Warnings might be allowed in versions where Instructions continue to support
-          # deprecated methods.
-          run: |
-            if [ "<<parameters.allow-warnings>>" == "YES" ]; then
-              pod lib lint --allow-warnings;
-            else
-              pod lib lint;
-            fi
-          when: <<parameters.run-pod-lint>>
+      - when:
+          condition: <<parameters.run-pod-lint>>
+          steps:
+            - run:
+                name: Run Cocoapods' linter
+                # Warnings might be allowed in versions where Instructions continue to support
+                # deprecated methods.
+                command: |
+                  if [ "<<parameters.allow-warnings>>" == "YES" ]; then
+                    pod lib lint --allow-warnings;
+                  else
+                    pod lib lint;
+                  fi
 
-      - name: Build example projects
-          run: |
+
+      - run:
+          name: Build example projects
+          command: |
             bundle exec fastlane build_examples
 
-      - name: Run tests
-          run: |
-            bundle exec fastlane test_all
-          when: <<parameters.run-tests>>
+      - when:
+          condition: <<parameters.run-tests>>
+          steps:
+            - run:
+                name: Run tests
+                command: |
+                  bundle exec fastlane test_all
 
-      - name: Convert and upload coverage
+      - run:
+          name: Convert and upload coverage
           environment:
             CC_TEST_REPORTER_ID: postgres://conductor:@localhost:5432/conductor_test
-          run: |
+          command: |
             slather coverage -x --build-directory Build/
             ./cc-test-reporter after-build --coverage-input-type cobertura "Tests/cobertura.xml"
 
-      - store_artifacts:
-          path: "Examples/Example/Snapshot Tests/Supporting Files/Snapshots/FailureDiffs/"
-          destination: "failure-diffs"
-          when: on_fail
+      - when:
+          condition:
             and:
               - on_fail
               - equal: [true, <<parameters.run-tests>>]
+          steps:
+            - store_artifacts:
+                path: "Examples/Example/Snapshot Tests/Supporting Files/Snapshots/FailureDiffs/"
+                destination: "failure-diffs"
+
 
 workflows:
   all-tests:
