@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "FB93C8F4-28D4-472C-8B4D-1C2BF5034923",
+      "name" : "Default",
+      "options" : {
+        "environmentVariableEntries" : [
+
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Instructions Example.xcodeproj",
+      "identifier" : "B639B28020D4E71D009996CF",
+      "name" : "InstructionsSnapshotTests"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Instructions Example.xcodeproj",
+        "identifier" : "B6C9D64C20D3B7FC00EBC03A",
+        "name" : "InstructionsUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

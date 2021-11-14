@@ -45,6 +45,9 @@
          <TestPlanReference
             reference = "container:Snapshot.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Unit.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

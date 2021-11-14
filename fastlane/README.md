@@ -56,6 +56,11 @@ Run snapshot tests
 fastlane ios test_unit_and_ui
 ```
 Run snapshot tests
+### ios test_unit
+```
+fastlane ios test_unit
+```
+Run snapshot tests
 
 ----
 

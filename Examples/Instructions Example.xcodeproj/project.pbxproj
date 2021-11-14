@@ -169,6 +169,7 @@
 		B6AE59FF273FD8CA00CFCF00 /* UIDeviceOrientation+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDeviceOrientation+Convenience.swift"; sourceTree = "<group>"; };
 		B6AE5A01273FD99300CFCF00 /* DeviceKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceKit+Extensions.swift"; sourceTree = "<group>"; };
 		B6AE5A03273FDA1300CFCF00 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		B6AE5A092741353800CFCF00 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
 		B6AF4D812433799300151B64 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B6AF4DA124349B3A00151B64 /* Development.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Development.storyboard; sourceTree = "<group>"; };
 		B6C9D64D20D3B7FC00EBC03A /* InstructionsUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstructionsUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				B6DECE1D273ACB4800DB1AD1 /* Snapshot.xctestplan */,
+				B6AE5A092741353800CFCF00 /* Unit.xctestplan */,
 				B6968985266946D20093EBBA /* Unit+UI.xctestplan */,
 			);
 			name = "Test Plans";

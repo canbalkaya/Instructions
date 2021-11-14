@@ -93,7 +93,7 @@ platform :ios do
     )
   end
 
-  desc "Run snapshot tests"
+  desc "Run unit and UI tests"
   lane :test_unit_and_ui do
     run_tests(
       workspace: WORKSPACE,
@@ -102,4 +102,12 @@ platform :ios do
     )
   end
 
+  desc "Run unit tests"
+  lane :test_unit do
+    run_tests(
+      workspace: WORKSPACE,
+      scheme: EXAMPLE_SCHEME,
+      testplan: "Unit"
+    )
+  end
 end
