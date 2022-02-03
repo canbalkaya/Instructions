@@ -147,13 +147,8 @@ private extension CoachMarkBodyDefaultView {
         label.font = .systemFont(ofSize: 15.0)
 
         label.backgroundColor = .clear
-
-        label.textContainerInset = .zero
-        label.textContainer.lineFragmentPadding = 0
-
-        label.isEditable = false
-        label.isScrollEnabled = false
         label.isUserInteractionEnabled = false
+        return label
     }
 
     func makeNextLabel() -> UILabel {
