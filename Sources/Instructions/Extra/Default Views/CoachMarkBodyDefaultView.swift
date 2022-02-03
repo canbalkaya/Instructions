@@ -23,6 +23,7 @@ public class CoachMarkBodyDefaultView: UIControl,
 
     public lazy var nextLabel: UILabel = makeNextLabel()
     public lazy var hintLabel: UITextView = makeHintTextView()
+    public lazy var descriptionLabel: UILabel = makeDescriptionLabel()
     public lazy var separator: UIView = makeSeparator()
 
     public var background: CoachMarkBodyBackgroundStyle {
@@ -34,7 +35,7 @@ public class CoachMarkBodyDefaultView: UIControl,
     public weak var highlightArrowDelegate: CoachMarkBodyHighlightArrowDelegate?
 
     // MARK: Private Properties
-    private lazy var labelStackView: UIStackView = makeStackView()
+    public lazy var labelStackView: UIStackView = makeStackView()
 
     private var bodyBackground = CoachMarkBodyBackgroundView().preparedForAutoLayout()
 
@@ -82,7 +83,14 @@ private extension CoachMarkBodyDefaultView {
         bodyBackground.fillSuperview()
         labelStackView.fillSuperview(insets: UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15))
 
-        labelStackView.addArrangedSubview(hintLabel)
+        let titleStackView = UIStackView()
+        titleStackView.axis = .vertical
+        titleStackView.alignment = .leading
+        titleStackView.spacing = 4
+        titleStackView.addArrangedSubview(hintLabel)
+        titleStackView.addArrangedSubview(descriptionLabel)
+        
+        labelStackView.addArrangedSubview(titleStackView)
         labelStackView.addArrangedSubview(separator)
         labelStackView.addArrangedSubview(nextLabel)
 
@@ -100,9 +108,9 @@ private extension CoachMarkBodyDefaultView {
     func makeHintTextView() -> UITextView {
         let textView = UITextView().preparedForAutoLayout()
 
-        textView.textAlignment = .left
+        textView.textAlignment = .natural
         textView.textColor = InstructionsColor.coachMarkLabel
-        textView.font = UIFont.systemFont(ofSize: 15.0)
+        textView.font = .systemFont(ofSize: 15.0)
 
         textView.backgroundColor = .clear
 
@@ -129,6 +137,23 @@ private extension CoachMarkBodyDefaultView {
                                            for: .vertical)
 
         return textView
+    }
+    
+    func makeDescriptionLabel() -> UILabel {
+        let label = UILabel().preparedForAutoLayout()
+
+        label.textAlignment = .natural
+        label.textColor = InstructionsColor.coachMarkLabel
+        label.font = .systemFont(ofSize: 15.0)
+
+        label.backgroundColor = .clear
+
+        label.textContainerInset = .zero
+        label.textContainer.lineFragmentPadding = 0
+
+        label.isEditable = false
+        label.isScrollEnabled = false
+        label.isUserInteractionEnabled = false
     }
 
     func makeNextLabel() -> UILabel {
